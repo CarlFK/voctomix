@@ -23,13 +23,13 @@ override_dh_auto_install:
 		$(CURDIR)/debian/voctomix-gui/usr/share/voctomix/voctogui/
 	ln -s /usr/share/voctomix/voctogui/voctogui.py \
 		$(CURDIR)/debian/voctomix-gui/usr/bin/voctogui
+	ln -s /usr/share/voctomix/voctogui/ \
+		$(CURDIR)/debian/voctomix-gui/usr/lib/python3/dist-packages/voctogui
 	# voctomix-clients
 	cp -r example-scripts/gstreamer/ingest.py \
 	  	$(CURDIR)/debian/voctomix-clients/usr/share/voctomix/clients/
 	ln -s /usr/share/voctomix/clients/ingest.py \
 		$(CURDIR)/debian/voctomix-clients/usr/bin/ingest
-	ln -s /usr/share/voctomix/voctogui/ \
-		$(CURDIR)/debian/voctomix-clients/usr/lib/python3/dist-packages/voctogui
 
 override_dh_installdocs:
 	dh_installdocs
