@@ -11,7 +11,7 @@ What could be done:
  * automate creating the orig.tar.xz though this should be coordinated with
    upstream. Currently these commands can be used to create it:
    VERSION=0.3
-   git archive --format tar.gz --prefix=voctomix-$VERSION.orig/ -o ../voctomix_0.3.orig.tar.gz origin/master
+   git archive --format tar.gz --prefix=voctomix-$VERSION.orig/ -o ../voctomix_$VERSION.orig.tar.gz origin/master
    gunzip ../voctomix_$VERSION.orig.tar.gz
    xz ../voctomix_$VERSION.orig.tar
  * Not sure whether this should go into a new upstream Makefile or simply
