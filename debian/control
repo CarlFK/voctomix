@@ -77,3 +77,12 @@ Description: Full-HD Software Live-Video-Mixer (GUI)
  This package contains the GUI component, Voctogui, a GUI implementation in
  GTK controlling the core's functionality.
 
+Package: voctomix-clients
+Architecture: all
+Depends: ${shlibs:Depends}, ${misc:Depends}, ${python3:Depends},
+ voctomix-gui
+Description: Full-HD Software Live-Video-Mixer (clients)
+ .
+ Voctomix is written in Python using GStreamer by the CCC VOC.
+ .
+ This package contains the client components.
