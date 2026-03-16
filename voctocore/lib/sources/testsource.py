@@ -15,50 +15,40 @@ class TestSource(AVSource):
                          force_num_streams)
 
         self.name = name
-        self.pattern = Config.getTestPattern(name)
-        self.wave = Config.getTestWave(name)
+        self.video_source = Config.getGstVideoPipe(name)
+        self.audio_source = Config.getGstAudioPipe(name)
         self.build_pipeline()
 
     def port(self):
-        if self.has_video:
-            if self.internal_audio_channels():
-                return "(AV:{}+{})".format(self.pattern, self.wave)
-            else:
-                return "(V:{})".format(self.pattern)
-        else:
-            if self.internal_audio_channels():
-                return "(A:{})".format(self.wave)
-        return "Test"
+        return "GST AV"
 
     def num_connections(self):
         return 1
 
     def __str__(self):
-        return 'TestSource[{name}] ({pattern}, {wave})'.format(
+        return 'GstSource[{name}]'.format(
             name=self.name,
-            pattern=self.pattern,
-            wave=self.wave
         )
 
     def build_audioport(self):
-        # a volume of 0.126 is ~18dBFS
-        return """audiotestsrc
-                      name=audiotestsrc-{name}
-                      do-timestamp=true
-                      freq=1000
-                      volume=0.126
-                      wave={wave}
-                      is-live=true""".format(
+        return """{audio_source}
+                      name=gstaudiosrc-{name}
+                      """.format(
+            audio_source=self.audio_source,
             name=self.name,
-            wave=self.wave,
         )
 
     def build_videoport(self):
-        return """videotestsrc
-                      name=videotestsrc-{name}
-                      do-timestamp=true
-                      pattern={pattern}
-                      is-live=true""".format(
+
+        return """{video_source}
+                      name=gstvideosrc-{name}
+                ! queue max-size-time=4000000000
+                ! videoconvert
+                ! videorate
+                ! videoscale
+                ! queue max-size-time=4000000000
+                      """.format(
+            video_source=self.video_source,
             name=self.name,
-            pattern=self.pattern
         )
+ 
