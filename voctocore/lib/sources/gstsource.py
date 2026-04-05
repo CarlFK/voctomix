@@ -34,7 +34,6 @@ class GstAVSource(AVSource):
         return f"(AV:{audio_hint}+{video_hint})"
 
     def __str__(self):
-        raise
         return f'GSTSource[{self.name}] ({self.port()})'
 
     def build_audioport(self):
