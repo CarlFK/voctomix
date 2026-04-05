@@ -525,11 +525,8 @@ class VocConfigParser(ConfigParser):
             sources.extend(self._getInternalSources())
         return list(filter(source_has_audio, sources))
 
+    def getGstAudioPipe(self, source) -> str:
+        return self.get('source.{}'.format(source), 'audio_source', fallback='audiotestsrc wave=ticks freq=330')
 
     def getGstVideoPipe(self, source) -> str:
-        return self.get('source.{}'.format(source), 'video_source', fallback='videotestsrc')
-
-    def getGstAudioPipe(self, source) -> str:
-        return self.get('source.{}'.format(source), 'audio_source', fallback='audiotestsrc')
-
-
+        return self.get('source.{}'.format(source), 'video_source', fallback='videotestsrc pattern=ball motion=hsweep animation-mode=wall-time ! clockoverlay')
