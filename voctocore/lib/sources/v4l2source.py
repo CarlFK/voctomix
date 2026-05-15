@@ -86,7 +86,7 @@ class V4l2AVSource(AVSource):
             ! videorate
             """
 
-        if self.falbacksrc
+        if self.falbacksrc:
             pipe = f'fallbacksrc source="{pipe}"'
 
         pipe += """\
